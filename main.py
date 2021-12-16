@@ -60,7 +60,7 @@ class GameOfLife(Frame):
 		self.gameFrame.grid(row = 2, column = 0, columnspan = 4)
 
 		# Instantiates buttons for choosing initial configuration
-		self.cellButtons = [[Button(self.gameFrame, bg = 'white', width = 2, height = 1) for i in range(self.sizeX + 2)] for j in range(self.sizeY + 2)]
+		self.cellButtons = [[Button(self.gameFrame, highlightbackground = 'white', width = 2, height = 1) for i in range(self.sizeX + 2)] for j in range(self.sizeY + 2)]
 
 		# Creates 2d array of buttons for grid
 		for i in range(1, self.sizeY + 1):
@@ -82,10 +82,10 @@ class GameOfLife(Frame):
 			for j in range(1, self.sizeX + 1):
 				coord = (i, j)
 				# If cell dead and has 3 neighbors, add coordinate to list of coords to toggle
-				if self.cellButtons[i][j]['bg'] == 'white' and self.neighborCount(i, j) == 3:
+				if self.cellButtons[i][j]['highlightbackground'] == 'white' and self.neighborCount(i, j) == 3:
 					cellsToToggle.append(coord)
 				# If cell alive and does not have 2 or 3 neighbors, add coordinate to list of coords to toggle
-				elif self.cellButtons[i][j]['bg'] == 'black' and self.neighborCount(i, j) != 3 and self.neighborCount(i, j) != 2:
+				elif self.cellButtons[i][j]['highlightbackground'] == 'black' and self.neighborCount(i, j) != 3 and self.neighborCount(i, j) != 2:
 					cellsToToggle.append(coord)
 
 		# Updates (toggles) the cells on the grid
@@ -106,7 +106,7 @@ class GameOfLife(Frame):
 			randomX = random.randint(0, self.sizeX)
 			randomY = random.randint(0, self.sizeY)
 
-			if (self.cellButtons[randomY][randomX]['bg'] == 'black'):
+			if (self.cellButtons[randomY][randomX]['highlightbackground'] == 'black'):
 				continue
 
 			self.cellToggle(self.cellButtons[randomY][randomX])
@@ -131,16 +131,16 @@ class GameOfLife(Frame):
 
 		for i in range(xCoord - 1, xCoord + 2):
 			for j in range(yCoord - 1, yCoord + 2):
-				if (i != xCoord or j != yCoord) and self.cellButtons[i][j]['bg'] == 'black':
+				if (i != xCoord or j != yCoord) and self.cellButtons[i][j]['highlightbackground'] == 'black':
 					count += 1
 
 		return count
 
 	def cellToggle(self, cell):
-		if cell['bg'] == 'white':
-			cell['bg'] = 'black'
+		if cell['highlightbackground'] == 'white':
+			cell['highlightbackground'] = 'black'
 		else:
-			cell['bg'] = 'white'
+			cell['highlightbackground'] = 'white'
 
 	def stopGame(self, action):
 		self.generateNext = False
@@ -158,7 +158,7 @@ class GameOfLife(Frame):
 	def clearPlayGround(self):
 		for i in range(0, self.sizeY + 2):
 			for j in range(0, self.sizeX + 2):
-				self.cellButtons[i][j]['bg'] = 'white'
+				self.cellButtons[i][j]['highlightbackground'] = 'white'
 				self.cellButtons[i][j].configure(state = NORMAL)
 
 
